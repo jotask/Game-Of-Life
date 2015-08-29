@@ -48,7 +48,7 @@ public class Board {
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){
 				Cell cell = cells[i][j];
-				int neighbours = manyNeightbours(cell);
+				int neighbours = manyLiveNeightbours(cell);
 				// Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 				// Any live cell with two or three live neighbours lives on to the next generation.
 				// Any live cell with more than three live neighbours dies, as if by overcrowding.
@@ -68,10 +68,26 @@ public class Board {
 		}
 	}
 	
-	private int manyNeightbours(Cell cell){
+	private int manyLiveNeightbours(Cell cell){
 		int n = 0;
+		Vector2 p = cell.getPosition();
 		
-		
+		//Left
+		if(p.x > 0 && cells[p.x - 1][p.y].isLive()) n++;
+		// Right
+		if(p.x < WIDTH - 1 && cells[p.x + 1][p.y].isLive()) n++;
+		// Top
+		if(p.y > 0 && cells[p.x][p.y - 1].isLive()) n++;
+		// Bottom
+		if(p.y < HEIGTH - 1 && cells[p.x][p.y + 1].isLive()) n++;
+		// Top Left
+		if((p.y > 0 && p.x > 0) && (cells[p.x - 1][p.y - 1].isLive())) n++;
+		// Top Right
+		if((p.y > 0 && p.x < WIDTH - 1) && (cells[p.x + 1][p.y - 1].isLive())) n++;
+		// Bottom Left
+		if((p.y < HEIGTH - 1 && p.x > 0) && (cells[p.x - 1][p.y + 1].isLive())) n++;
+		// Bottom Right
+		if((p.y < HEIGTH - 1 && p.x < WIDTH - 1) && (cells[p.x + 1][p.y + 1].isLive())) n++;
 		
 		return n;
 	}

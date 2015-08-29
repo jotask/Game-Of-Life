@@ -45,6 +45,11 @@ public class Cell {
 	public boolean isLive() { return state; }
 	
 	/**
+	 * Get the Cell position
+	 */
+	public Vector2 getPosition(){ return this.position; }
+	
+	/**
 	 * Toggle the state for this instance
 	 */
 	public void toggle(){ this.state = !state; }
