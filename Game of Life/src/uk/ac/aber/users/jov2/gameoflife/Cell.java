@@ -66,5 +66,9 @@ public class Cell {
 		}
 		sr.box(position.x * CELLSIZE, position.y * CELLSIZE, 0, CELLSIZE, CELLSIZE, 0);
 	}
+	
+	public void renderDebug(ShapeRenderer sr){
+		sr.box(position.x * CELLSIZE, position.y * CELLSIZE, 0, CELLSIZE, CELLSIZE, 0);
+	}
 
 }

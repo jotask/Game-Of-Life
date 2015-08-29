@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Application implements ApplicationListener {
@@ -24,7 +25,12 @@ public class Application implements ApplicationListener {
 	@Override
 	public void render() {
 		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) board = new Board();
+		
+		// Update logic
 		board.update(Gdx.graphics.getDeltaTime());
+		
+		// Render method
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		board.render(sr);
 	}
 
