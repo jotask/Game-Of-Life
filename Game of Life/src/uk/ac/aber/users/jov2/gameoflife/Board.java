@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector3;
 
 public class Board {
 	
@@ -34,6 +35,14 @@ public class Board {
 	}
 	
 	public void update(float delta){
+		if(Gdx.input.justTouched()){
+			Vector3 touch = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touch);
+			int x = (int) touch.x / Cell.CELLSIZE;
+			int y = (int) touch.y / Cell.CELLSIZE;
+			cells[x][y].toggle();
+		}
+		
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE)) run = !run;
 		if(run) updateLogicAlgorithm();;
 	}
@@ -43,6 +52,7 @@ public class Board {
 	}
 	
 	public void render(ShapeRenderer sr){
+		sr.setProjectionMatrix(camera.combined);
 		sr.begin(ShapeType.Filled);
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){

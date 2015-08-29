@@ -23,9 +23,7 @@ public class Application implements ApplicationListener {
 
 	@Override
 	public void render() {
-		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
-			board = new Board();
-		}
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) board = new Board();
 		board.update(Gdx.graphics.getDeltaTime());
 		board.render(sr);
 	}
