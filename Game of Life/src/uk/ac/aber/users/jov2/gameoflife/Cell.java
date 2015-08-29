@@ -42,7 +42,7 @@ public class Cell {
 	* Know the state of this instance
 	* @return the state of this instance
 	*/
-	public boolean isState() { return state; }
+	public boolean isLive() { return state; }
 	
 	/**
 	 * Toggle the state for this instance

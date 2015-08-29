@@ -1,7 +1,5 @@
 package uk.ac.aber.users.jov2.gameoflife;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,7 +26,7 @@ public class Board {
 		
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){
-				cells[i][j] = new Cell(i, j, new Random().nextBoolean());
+				cells[i][j] = new Cell(i, j, false);
 			}
 		}
 		
@@ -42,13 +40,40 @@ public class Board {
 			int y = (int) touch.y / Cell.CELLSIZE;
 			cells[x][y].toggle();
 		}
-		
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE)) run = !run;
 		if(run) updateLogicAlgorithm();;
 	}
 	
 	private void updateLogicAlgorithm(){
-
+		for(int i = 0; i < cells.length; i++){
+			for (int j = 0; j < cells[0].length; j++){
+				Cell cell = cells[i][j];
+				int neighbours = manyNeightbours(cell);
+				// Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+				// Any live cell with two or three live neighbours lives on to the next generation.
+				// Any live cell with more than three live neighbours dies, as if by overcrowding.
+				// Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+				if(cell.isLive()){
+					if(neighbours < 2){
+						cell.toggle();
+					}else if(neighbours == 2 || neighbours == 3){
+						break;
+					}else if(neighbours > 3){
+						cell.toggle();
+					}
+				}else{
+					if(neighbours == 3) cell.toggle();
+				}
+			}
+		}
+	}
+	
+	private int manyNeightbours(Cell cell){
+		int n = 0;
+		
+		
+		
+		return n;
 	}
 	
 	public void render(ShapeRenderer sr){
