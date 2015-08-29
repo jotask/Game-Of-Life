@@ -4,12 +4,14 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Board {
 	
 	private final int WIDTH, HEIGTH;
+	private OrthographicCamera camera;
 	
 	private Cell[][] cells;
 	private boolean run;
@@ -17,6 +19,9 @@ public class Board {
 	public Board() {
 		WIDTH = Gdx.graphics.getWidth() / Cell.CELLSIZE;
 		HEIGTH = Gdx.graphics.getHeight() / Cell.CELLSIZE;
+		
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		cells = new Cell[WIDTH][HEIGTH];
 		
