@@ -2,6 +2,7 @@ package uk.ac.aber.users.jov2.gameoflife;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,7 +23,7 @@ public class Application implements ApplicationListener {
 
 	@Override
 	public void render() {
-		if(Gdx.input.justTouched()){
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			board = new Board();
 		}
 		board.update(Gdx.graphics.getDeltaTime());
