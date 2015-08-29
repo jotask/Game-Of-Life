@@ -52,6 +52,7 @@ public class Board {
 	}
 	
 	private void updateLogicAlgorithm(){
+		// FIXME The logic is wrong
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){
 				Cell cell = cells[i][j];
