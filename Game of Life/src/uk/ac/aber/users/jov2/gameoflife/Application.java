@@ -1,46 +1,43 @@
 package uk.ac.aber.users.jov2.gameoflife;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Application implements ApplicationListener {
 	
+	private ShapeRenderer sr;
+	private Board board;
+	
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
-		
+		sr = new ShapeRenderer();
+		board = new Board();
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resize(int width, int height) { }
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-		
+		if(Gdx.input.justTouched()){
+			board = new Board();
+		}
+		board.update(Gdx.graphics.getDeltaTime());
+		board.render(sr);
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void pause() { }
 
 	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void resume() { }
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		sr.dispose();
 	}
 
 	public static void main(String[] args) {
