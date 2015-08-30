@@ -13,67 +13,35 @@ public class MyInput implements InputProcessor{
 	}
 
 	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean keyDown(int keycode) { return false; }
 
 	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean keyUp(int keycode) { return false; }
 
 	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean keyTyped(char character) { return false; }
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
 
 	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
 
 	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
 
 	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean mouseMoved(int screenX, int screenY) { return false; }
 
 	@Override
 	public boolean scrolled(int amount) {
 		//Zoom out
-		if (amount > 0 && zoom < 1) {
-			zoom += 0.1f;
-		}
-		
+		if (amount > 0 && zoom < 1) zoom += 0.1f;
 		 //Zoom in
-		if (amount < 0 && zoom > 0.1) {
-			zoom -= 0.1f;
-		}
-		updateCam();
-		return true;
-	}
-	
-	private void updateCam(){
+		if (amount < 0 && zoom > 0.1) zoom -= 0.1f;
 		cam.zoom = zoom;
 		cam.update();
+		return true;
 	}
-
-	
 	
 }

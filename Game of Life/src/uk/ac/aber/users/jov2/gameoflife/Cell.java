@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
- * The class for hold the information for the celds and his state for the board
+ * The class for hold the information for the cells and his state for the board
  * 
  * @author Jota
  *
@@ -14,7 +14,7 @@ public class Cell {
 	/**
 	 * The Cell size for know when is drawing the cells
 	 */
-	public static final int CELLSIZE = 4;
+	public static final int CELLSIZE = 50;
 	
 	/**
 	 * Boolean for hold the state, because the state have only two possible values (on or off, live or dead, etc)
@@ -54,6 +54,8 @@ public class Cell {
 	 */
 	public void toggle(){ this.state = !state; }
 	
+	public void setState(boolean state){ this.state = state; }
+	
 	/**
 	 * Render the cell creating a rectangle, and depending in his state draw black or white
 	 * @param sr the ShapeRenderer class for draw
@@ -69,6 +71,11 @@ public class Cell {
 	
 	public void renderDebug(ShapeRenderer sr){
 		sr.box(position.x * CELLSIZE, position.y * CELLSIZE, 0, CELLSIZE, CELLSIZE, 0);
+	}
+	
+	public String toString() {
+		String tmp = position.x + ":" + position.y;
+		return tmp;
 	}
 
 }

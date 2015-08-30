@@ -43,6 +43,7 @@ public class Application implements ApplicationListener {
 	@Override
 	public void dispose() {
 		sr.dispose();
+		board.dispose();
 	}
 
 	public static void main(String[] args) {
