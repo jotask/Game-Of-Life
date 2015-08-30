@@ -14,7 +14,7 @@ public class Cell {
 	/**
 	 * The Cell size for know when is drawing the cells
 	 */
-	public static final int CELLSIZE = 50;
+	public static final int CELLSIZE = 8;
 	
 	/**
 	 * Boolean for hold the state, because the state have only two possible values (on or off, live or dead, etc)

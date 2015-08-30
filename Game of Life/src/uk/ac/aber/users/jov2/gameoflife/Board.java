@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
@@ -17,10 +15,7 @@ public class Board {
 	
 	private Cell[][] cells;
 	private boolean run;
-	private boolean debug = true;
-	
-	private BitmapFont fnt;
-	SpriteBatch sb = new SpriteBatch();
+	private boolean debug;
 	
 	public Board() {
 		
@@ -33,8 +28,6 @@ public class Board {
 		Gdx.input.setInputProcessor(new MyInput(camera));
 		
 		cells = new Cell[WIDTH][HEIGTH];
-		
-		fnt = new BitmapFont(Gdx.files.internal("source/fnt.fnt"));
 		
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){
@@ -133,21 +126,9 @@ public class Board {
 				}
 			}
 			sr.end();
-		}
-		
-		sb.setProjectionMatrix(camera.combined);
-		sb.begin();
-		for(int i = 0; i < cells.length; i++){
-			for (int j = 0; j < cells[0].length; j++){
-				Cell c = cells[i][j];
-				fnt.draw(sb, c.getPosition().x + ":" + c.getPosition().y, c.getPosition().x * Cell.CELLSIZE, (c.getPosition().y * Cell.CELLSIZE) + Cell.CELLSIZE);
-			}
-		}
-		sb.end();
-	}
-	
-	public void dispose(){
-		sb.dispose();
+		}	
 	}
 
 }
+	
+	
