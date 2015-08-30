@@ -54,11 +54,15 @@ public class Cell {
 	 */
 	public void toggle(){ this.state = !state; }
 	
+	/**
+	 * For change the state of this cell instance
+	 * @param state the new state for the cell
+	 */
 	public void setState(boolean state){ this.state = state; }
 	
 	/**
 	 * Render the cell creating a rectangle, and depending in his state draw black or white
-	 * @param sr the ShapeRenderer class for draw
+	 * @param sr the ShapeRenderer class with the ShapeType.Fill instantiated
 	 */
 	public void render(ShapeRenderer sr) {
 		if(state){
@@ -69,13 +73,12 @@ public class Cell {
 		sr.box(position.x * CELLSIZE, position.y * CELLSIZE, 0, CELLSIZE, CELLSIZE, 0);
 	}
 	
+	/**
+	 * For see the cell bounds the cell
+	 * @param sr the ShapRenderer with the ShapeType.Line instantiated
+	 */
 	public void renderDebug(ShapeRenderer sr){
 		sr.box(position.x * CELLSIZE, position.y * CELLSIZE, 0, CELLSIZE, CELLSIZE, 0);
-	}
-	
-	public String toString() {
-		String tmp = position.x + ":" + position.y;
-		return tmp;
 	}
 
 }

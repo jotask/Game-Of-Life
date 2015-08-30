@@ -8,27 +8,58 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * This class holds all the information and logic for the game of life
+ * 
+ * @author Jota
+ *
+ */
 public class Board {
 	
+	/**
+	 * The width and the height for the all the board
+	 * In the constructor we calculate the optimum size for the board
+	 */
 	private final int WIDTH, HEIGTH;
+	
+	/**
+	 * The camera for the graphics and know where we are looking
+	 */
 	private OrthographicCamera camera;
 	
+	/**
+	 * An array for store all the cells the board have
+	 */
 	private Cell[][] cells;
+	
+	/**
+	 * Know if the algorithm can work or not
+	 */
 	private boolean run;
+	
+	/**
+	 * Know if we need draw debug information (deleted) or the bounds
+	 */
 	private boolean debug;
 	
+	/**
+	 * The constructor for this class
+	 */
 	public Board() {
 		
+		// Calculate how many cell can fit on the screen
 		WIDTH = Gdx.graphics.getWidth() / Cell.CELLSIZE;
 		HEIGTH = Gdx.graphics.getHeight() / Cell.CELLSIZE;
 		
+		// Instantiate the camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
+		// We say to GDX to use our own InputProcessor
 		Gdx.input.setInputProcessor(new MyInput(camera));
 		
+		// Instantiate the cells 2D array and we create a default cell for each position
 		cells = new Cell[WIDTH][HEIGTH];
-		
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){
 				cells[i][j] = new Cell(i, j, false);
@@ -37,7 +68,12 @@ public class Board {
 		
 	}
 	
+	/**
+	 * Handle input and update logic
+	 * @param delta the delta time
+	 */
 	public void update(float delta){
+		// If the screen had been touched we toggle the state of the cell the user clicked
 		if(Gdx.input.justTouched()){
 			run = false;
 			Vector3 touch = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -46,18 +82,30 @@ public class Board {
 			int y = (int) touch.y / Cell.CELLSIZE;
 			cells[x][y].toggle();
 		}
+		
+		// If the key CTRL_LEFT is pressed we toggle debug
 		if(Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) debug = !debug;
+		
+		// If the key SPACE is pressed we toggle the run variable
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE)) run = !run;
+		
+		// If run is true, we update the game logic
 		if(run) updateLogicAlgorithm();;
 	}
 	
+	/**
+	 * We see all the neighbours and implement the rules from the game of life algorithm
+	 */
 	private void updateLogicAlgorithm(){
-		// FIXME The logic is wrong
+		// Create a new 2D array for the new cells
 		Cell[][] tmp = new Cell[WIDTH][HEIGTH];
+		
+		// See each cell on the board
 		for(int i = 0; i < cells.length; i++){
 			for (int j = 0; j < cells[0].length; j++){
 				Cell cell = cells[i][j];
 				tmp[i][j] = new Cell(cell.getPosition().x, cell.getPosition().y, false);
+				// Know many neighbouds this cell have
 				int neighbours = manyLiveNeightbours(cell);
 				// Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 				// Any live cell with two or three live neighbours lives on to the next generation.
@@ -78,9 +126,15 @@ public class Board {
 				}
 			}
 		}
+		// Copy the new board to the actual board
 		cells = tmp;
 	}
 	
+	/**
+	 * Know how many live neighbours have one cell
+	 * @param cell the cell we want know how many neighbours have
+	 * @return the number of neighbours
+	 */
 	private int manyLiveNeightbours(Cell cell){
 		int n = 0;
 		Vector2 p = cell.getPosition();
@@ -105,6 +159,10 @@ public class Board {
 		return n;
 	}
 	
+	/**
+	 * Render each cell on the board
+	 * @param sr
+	 */
 	public void render(ShapeRenderer sr){
 		sr.setProjectionMatrix(camera.combined);
 		sr.begin(ShapeType.Filled);
@@ -115,6 +173,7 @@ public class Board {
 		}
 		sr.end();
 		
+		// If debug is true we draw a cell bound
 		if(debug){
 			sr.setProjectionMatrix(camera.combined);
 			sr.begin(ShapeType.Line);
@@ -130,5 +189,3 @@ public class Board {
 	}
 
 }
-	
-	
